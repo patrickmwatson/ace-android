@@ -1015,6 +1015,9 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 				create_new_outgoing_bubble(null);
 			}
 			showRTTinterface();
+			//VATRP-1848 Show keyboard whenever chat button is pressed
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
 		}
 
 	}
