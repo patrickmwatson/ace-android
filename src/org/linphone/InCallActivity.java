@@ -19,8 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -157,6 +159,8 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 	RelativeLayout mainLayout;
 	final float mute_db = -1000.0f;
 
+	private HeadPhoneJackIntentReceiver myReceiver;
+
 	public static InCallActivity instance() {
 		return instance;
 	}
@@ -193,6 +197,7 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 		mainLayout.addView(statusBar);
 		setContentView(mainLayout);
 
+		myReceiver = new HeadPhoneJackIntentReceiver();
 
         isTransferAllowed = getApplicationContext().getResources().getBoolean(R.bool.allow_transfers);
         showCallListInVideo = getApplicationContext().getResources().getBoolean(R.bool.show_current_calls_above_video);
@@ -1856,6 +1861,9 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 		handleViewIntent();
 
 		toggleSpeaker(isSpeakerMuted);
+
+		IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+		registerReceiver(myReceiver, filter);
 	}
 	
 	private void handleViewIntent() {
@@ -1893,7 +1901,7 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 	@Override
 	protected void onPause() {
 		Log.d("onPause()");
-
+		unregisterReceiver(myReceiver);
 		save_messages();
 
 		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
@@ -2188,5 +2196,24 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
         }
         
         callsList.invalidate();
+	}
+	private class HeadPhoneJackIntentReceiver extends BroadcastReceiver {
+		@Override public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
+				int state = intent.getIntExtra("state", -1);
+				switch (state) {
+					case 0:
+						Log.d("HEADPHONES", "Headset is unplugged");
+
+						break;
+					case 1:
+						Log.d("HEADPHONES", "Headset is plugged");
+						LinphoneManager.getInstance().routeAudioToReceiver();
+						break;
+					default:
+						Log.d("HEADPHONES", "I have no idea what the headset state is");
+				}
+			}
+		}
 	}
 }
