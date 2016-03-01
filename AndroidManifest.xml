@@ -171,7 +171,8 @@
 		<activity android:name="org.linphone.LinphoneActivity"
 		    android:theme="@style/NoTitle"
             android:screenOrientation="behind"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
