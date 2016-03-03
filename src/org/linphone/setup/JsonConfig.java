@@ -1,9 +1,7 @@
 package org.linphone.setup;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Build;
 
@@ -90,6 +88,7 @@ public class JsonConfig {
 		applyAudioCodecs();
 		applyVideoCodecs();
 		applyOtherConfig(transport_type, port);
+
 	}
 
 
@@ -174,10 +173,12 @@ public class JsonConfig {
 		mPrefs.enableVideo(_enable_video, _enable_video);
 		LinphoneManager.getInstance().setRttEnabled(_enable_rtt);
 		mPrefs.enableAdaptiveRateControl(_enable_adaptive_rate);
-		if (_enable_stun && _stun_server != null)
+		if (_enable_stun && _stun_server != null) {
 			mPrefs.setStunServer(_stun_server);
-		else
-			mPrefs.setStunServer("");
+		}else {
+			mPrefs.setStunServer("bc1.vatrp.net");//Set stun server
+		}
+		_enable_ice=true;//Set ice enabled by default
 		mPrefs.setIceEnabled(_enable_ice);
 		if (_logging != null && _logging.toLowerCase().equals("debug"))
 			mPrefs.setDebugEnabled(true);

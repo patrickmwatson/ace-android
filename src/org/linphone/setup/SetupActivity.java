@@ -376,7 +376,7 @@ public class SetupActivity extends FragmentActivity implements OnClickListener {
 
 
 	}
-	
+
 	public void checkAccount(String username, String password, String domain, String userId, TransportType transport_type, String port) {
 		saveCreatedAccount(username, password, domain, userId, transport_type, port);
 	}
