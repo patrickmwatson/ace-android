@@ -1,3 +1,6 @@
+[sip]
+sip_random_port=1
+
 [net]
 download_bw=660
 upload_bw=660
