@@ -181,6 +181,13 @@ public class GenericLoginFragment extends Fragment implements OnClickListener, A
 			providerLookupOperation.addListener(this);
 		}
 
+		//Screen Hit
+//		Log.i(Log.TAG, "Setting screen name: LoginScreen");
+//		g.analytics_tracker.setScreenName("LoginScreen");
+
+
+
+
 		return view;
 	}
 //	/**
@@ -261,6 +268,10 @@ public class GenericLoginFragment extends Fragment implements OnClickListener, A
 						port.getText().toString().replaceAll("\\s", ""));
 
 			}
+
+			//Event
+			//g.analytics_tracker.send(LinphoneActivity.instance().getApplicationContext(),"Action","Login Button Pressed",null,null);
+
 		}else if (id == R.id.ab_back){
 				getActivity().onBackPressed();
 			}

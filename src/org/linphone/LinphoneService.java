@@ -176,6 +176,9 @@ public final class LinphoneService extends Service {
 				
 				if (state == LinphoneCall.State.IncomingReceived) {
 					onIncomingReceived();
+					//Event
+					//g.analytics_tracker.send(LinphoneActivity.instance().getApplicationContext(),"Call","Incoming Received",state.toString(),null);
+
 				}
 				
 				if (state == State.CallUpdatedByRemote) {
@@ -190,6 +193,9 @@ public final class LinphoneService extends Service {
 							e.printStackTrace();
 						}
 					}
+
+
+					//g.analytics_tracker.send(LinphoneActivity.instance().getApplicationContext(),"Call","Call Update by Remote",state.toString(),null);
 				}
 
 				if (state == State.StreamsRunning) {
@@ -211,6 +217,11 @@ public final class LinphoneService extends Service {
 
 			@Override
 			public void registrationState(LinphoneCore lc, LinphoneProxyConfig cfg, LinphoneCore.RegistrationState state, String smessage) {
+				String registration_state=state.toString();
+
+				//Event
+				//g.analytics_tracker.send(LinphoneActivity.instance().getApplicationContext(),"Registration","Registration State",registration_state,null);
+
 //				if (instance == null) {
 //					Log.i("Service not ready, discarding registration state change to ",state.toString());
 //					return;
