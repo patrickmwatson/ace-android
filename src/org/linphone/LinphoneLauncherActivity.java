@@ -209,7 +209,7 @@ public class LinphoneLauncherActivity extends Activity {
 		if (g.analytics_tracker == null) {
 			GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
 			// To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-			g.analytics_tracker = analytics.newTracker(R.xml.global_tracker);
+			g.analytics_tracker = analytics.newTracker(R.xml.global_tracker_2);
 		}
 		return g.analytics_tracker;
 	}
