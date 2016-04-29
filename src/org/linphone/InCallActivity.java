@@ -3041,8 +3041,8 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 			return;
 		showStatusFlashing = true;
 
-		final TextView tvSubStatus = (TextView) findViewById(R.id.outboundRingCount);
 
+		tv_status.setVisibility(View.VISIBLE);
 		final Timer flashOrangeBackgroundTimer = new Timer();
 		final float flashFrequencyInSeconds = LinphonePreferences.instance().getConfig().getFloat("vtcsecure", "incoming_flashred_frequency", 0.3f);
 		flashOrangeBackgroundTimer.schedule(new TimerTask() {
@@ -3059,7 +3059,7 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 						colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 							@Override
 							public void onAnimationUpdate(ValueAnimator animator) {
-								tvSubStatus.setBackgroundColor((Integer) animator.getAnimatedValue());
+								tv_status.setBackgroundColor((Integer) animator.getAnimatedValue());
 							}
 						});
 
@@ -3067,7 +3067,7 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 						reverseColorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 							@Override
 							public void onAnimationUpdate(ValueAnimator animator) {
-								tvSubStatus.setBackgroundColor((Integer) animator.getAnimatedValue());
+								tv_status.setBackgroundColor((Integer) animator.getAnimatedValue());
 							}
 						});
 						colorAnimation.setDuration((long) (flashFrequencyInSeconds * 1000));
