@@ -89,6 +89,7 @@ import org.linphone.mediastream.Version;
 import org.linphone.mediastream.video.capture.hwconf.AndroidCameraConfiguration;
 import org.linphone.ui.Numpad;
 import org.linphone.vtcsecure.LinphoneTorchFlasher;
+import org.linphone.vtcsecure.Utils;
 import org.linphone.vtcsecure.g;
 
 import java.util.ArrayList;
@@ -411,8 +412,17 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 				if(state == State.CallEnd || state == State.Error || state == State.CallReleased
 						|| state == State.Connected
 						|| state == State.StreamsRunning){
+
+					if(!showHangupCustomReason &&(state == State.CallEnd || state == State.Error)) {
+						String call_end_reason = Utils.getReasonText(call.getReason(), InCallActivity.this);
+						tv_status.setText(call_end_reason);
+						tv_status.setVisibility(View.VISIBLE);
+					}
+
+
 					findViewById(R.id.label_ringing).setVisibility(View.INVISIBLE);
 					findViewById(R.id.outboundRingCount).setVisibility(View.GONE);
+
 					stopOutgoingRingCount();
 				}
 
