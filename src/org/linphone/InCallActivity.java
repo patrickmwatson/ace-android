@@ -2394,6 +2394,8 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 		}catch(Throwable e){
 			e.printStackTrace();
 		}
+
+		update_call();
 	}
 
 	private void handleViewIntent() {
