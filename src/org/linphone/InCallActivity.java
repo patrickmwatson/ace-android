@@ -401,11 +401,12 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 				}catch(Throwable e){
 					e.printStackTrace();
 				}
-				if (lc.getCallsNb() == 0) {
-					finishWithDelay();
-					stopOutgoingRingCount();
-					return;
+
+				if(state == State.OutgoingRinging)
+				{
+					((TextView)findViewById(R.id.label_ringing)).setText("Ringing...");
 				}
+
 
 				if(state == State.CallEnd || state == State.Error || state == State.CallReleased
 						|| state == State.Connected
@@ -413,6 +414,12 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 					findViewById(R.id.label_ringing).setVisibility(View.INVISIBLE);
 					findViewById(R.id.outboundRingCount).setVisibility(View.GONE);
 					stopOutgoingRingCount();
+				}
+
+				if (lc.getCallsNb() == 0) {
+					finishWithDelay();
+					stopOutgoingRingCount();
+					return;
 				}
 
 				if (lc.getCallsNb() == 1 && lc.getCalls()[0].getState() == State.Paused) {
