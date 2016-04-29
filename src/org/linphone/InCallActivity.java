@@ -419,14 +419,10 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 						tv_status.setVisibility(View.VISIBLE);
 					}
 
-					try {
-						findViewById(R.id.label_ringing).setVisibility(View.INVISIBLE);
-						findViewById(R.id.outboundRingCount).setVisibility(View.GONE);
-					}
-					catch (Exception ex)
-					{
 
-					}
+					findViewById(R.id.label_ringing).setVisibility(View.INVISIBLE);
+					findViewById(R.id.outboundRingCount).setVisibility(View.GONE);
+
 					stopOutgoingRingCount();
 				}
 
