@@ -500,6 +500,7 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 						return;
 					}
 
+
 					boolean remoteVideo = call.getRemoteParams().getVideoEnabled();
 					boolean localVideo = call.getCurrentParamsCopy().getVideoEnabled();
 					boolean autoAcceptCameraPolicy = LinphonePreferences.instance().shouldAutomaticallyAcceptVideoRequests();
@@ -3003,9 +3004,24 @@ public class InCallActivity extends FragmentActivity implements OnClickListener 
 
 	void finishWithDelay()
 	{
+		if(System.currentTimeMillis() - LinphoneActivity.instance().call_error_time < 5000 && !showHangupCustomReason)
+		{
+			tv_status.setText(LinphoneActivity.instance().call_error_reason);
+			tv_status.setVisibility(View.VISIBLE);
+
+			try {
+				findViewById(R.id.label_ringing).setVisibility(View.INVISIBLE);
+				findViewById(R.id.outboundRingCount).setVisibility(View.GONE);
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+		}
 		if(!mHandler.hasMessages(1)) {
 			mHandler.sendEmptyMessage(1);
-			mHandler.postDelayed(finishRunnable, 1000);
+			mHandler.postDelayed(finishRunnable, 2000);
 		}
 	}
 
